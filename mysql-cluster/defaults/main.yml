@@ -1,0 +1,15 @@
+---
+# defaults file for mysql-cluster
+
+mysql_cluster_version: 7.4.12
+
+ndbd_default_noofreplicas: 2
+ndbd_default_datamemory: "80M"
+ndbd_default_indexmemory: "18M"
+
+tcp_default_portnumber: 2022
+
+ndb_mgmd_datadir: "/var/lib/mysql-cluster"
+
+
+ndbd_datadir: "/usr/share/mysql/data"

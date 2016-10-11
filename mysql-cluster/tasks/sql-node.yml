@@ -1,0 +1,8 @@
+---
+
+- name: configure sql nodes
+  template:
+    src: sql-my.cnf.j2
+    dest: /etc/my.cnf
+  notify:
+    - reload MySQL Cluster

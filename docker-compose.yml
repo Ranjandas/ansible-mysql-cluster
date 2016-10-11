@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+  mgmt_nodes:
+    image: centos:6
+    container_name: mgmt.example.com
+    hostname: mgmt
+    domainname: example.com
+    volumes:
+      - ./files/mysql-cluster-repo:/opt/mysql-cluster-repo:z
+    command: /bin/sleep infinity
+
+  data_node_1:
+    image: centos:6
+    container_name: data-node-1.example.com
+    hostname: data-node-1
+    domainname: example.com
+    volumes:
+      - ./files/mysql-cluster-repo:/opt/mysql-cluster-repo:z
+    command: /bin/sleep infinity
+
+  data_node_2:
+    image: centos:6
+    container_name: data-node-2.example.com
+    hostname: data-node-2
+    domainname: example.com
+    volumes:
+      - ./files/mysql-cluster-repo:/opt/mysql-cluster-repo:z
+    command: /bin/sleep infinity
+
+  sql_node_1:
+    image: centos:6
+    container_name: sql-node-1.example.com
+    hostname: sql-node-1
+    domainname: example.com
+    volumes:
+      - ./files/mysql-cluster-repo:/opt/mysql-cluster-repo:z
+    command: /bin/sleep infinity
+
+  sql_node_2:
+    image: centos:6
+    container_name: sql-node-2.example.com
+    hostname: sql-node-2
+    domainname: example.com
+    volumes:
+      - ./files/mysql-cluster-repo:/opt/mysql-cluster-repo:z
+    command: /bin/sleep infinity

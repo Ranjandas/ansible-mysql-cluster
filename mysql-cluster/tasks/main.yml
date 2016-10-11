@@ -1,0 +1,22 @@
+---
+# tasks file for mysql-cluster
+
+- name: install MySQL Cluster server package
+  yum: 
+    name: MySQL-Cluster-server-gpl-{{ mysql_cluster_version }}
+    state: present
+
+- include: ./mgmt-node.yml
+  when: "'management_nodes' in group_names"
+
+- include: ./sql-node.yml
+  when: "'sql_nodes' in group_names"
+
+- include: ./data-node.yml
+  when: "'data_nodes' in group_names"
+
+- name: start MySQL Cluster service
+  service:
+    name: mysql
+    state: started
+

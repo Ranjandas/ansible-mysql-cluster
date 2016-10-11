@@ -1,0 +1,9 @@
+[mysqld]
+# Options for mysqld process:
+ndbcluster                      # run NDB storage engine
+
+[mysql_cluster]
+# Options for MySQL Cluster processes:
+{% for host in groups['management_nodes'] %}
+ndb-connectstring={{ hostvars[host]['ansible_fqdn'] }} # location of management server
+{% endfor %}

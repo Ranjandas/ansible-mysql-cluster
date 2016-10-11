@@ -1,0 +1,36 @@
+[ndbd default]
+# Options affecting ndbd processes on all data nodes:
+NoOfReplicas={{ ndbd_default_noofreplicas }}    # Number of replicas
+DataMemory={{ ndbd_default_datamemory }}    # How much memory to allocate for data storage
+IndexMemory={{ ndbd_default_indexmemory }}   # How much memory to allocate for index storage
+                  # For DataMemory and IndexMemory, we have used the
+                  # default values. Since the "world" database takes up
+                  # only about 500KB, this should be more than enough for
+                  # this example Cluster setup.
+
+[tcp default]
+# TCP/IP options:
+portnumber={{ tcp_default_portnumber }}   # This the default; however, you can use any
+                  # port that is free for all the hosts in the cluster
+                  # Note: It is recommended that you do not specify the port
+                  # number at all and simply allow the default value to be used
+                  # instead
+
+[ndb_mgmd]
+# Management process options:
+{% for host in groups['management_nodes'] %}
+hostname={{ hostvars[host]['ansible_fqdn'] }}
+{% endfor %}
+datadir={{ ndb_mgmd_datadir }}  # Directory for MGM node log files
+
+{% for host in groups['data_nodes'] %}
+[ndbd]
+hostname={{ hostvars[host]['ansible_fqdn'] }}
+datadir={{ ndbd_datadir }}
+
+{% endfor %}
+
+{% for host in groups['sql_nodes'] %}
+[mysqld]
+hostname={{ hostvars[host]['ansible_fqdn'] }}
+{% endfor %}

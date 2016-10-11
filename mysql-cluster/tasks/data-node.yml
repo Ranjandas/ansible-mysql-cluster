@@ -1,0 +1,18 @@
+---
+
+- name: create ndbd data dir
+  file:
+    name: "{{ ndbd_datadir }}"
+    state: directory
+
+- name: configure sql nodes
+  template:
+    src: data-my.cnf.j2
+    dest: /etc/my.cnf
+  notify:
+    - reload MySQL Cluster
+
+- name: start ndbd daemon
+  command: ndbd
+  failed_when: false
+  changed_when: false

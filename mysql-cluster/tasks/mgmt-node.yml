@@ -1,0 +1,19 @@
+---
+
+- name: create management data dir
+  file:
+    name: "{{ ndb_mgmd_datadir }}"
+    state: directory
+
+
+- name: configure management node
+  template:
+    src: mgmt-config.ini.j2
+    dest: "{{ ndb_mgmd_datadir }}/config.ini"
+  notify:
+    - reload MySQL Cluster
+
+- name: start ndb_mgmd deamon
+  command: ndb_mgmd -f "{{ ndb_mgmd_datadir }}/config.ini"
+  failed_when: false
+  changed_when: false

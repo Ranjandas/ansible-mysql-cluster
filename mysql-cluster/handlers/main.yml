@@ -1,0 +1,7 @@
+---
+# handlers file for mysql-cluster
+
+- name: reload MySQL Cluster
+  service:
+    name: mysql
+    state: reloaded
